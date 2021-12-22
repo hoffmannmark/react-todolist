@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {Platform, KeyboardAvoidingView, StyleSheet, Text, View, TextInput} from 'react-native';
-import Task from './components/task';
-import {TouchableOpacity} from "react-native-web";
+import {Platform, TouchableOpacity, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View, TextInput} from 'react-native';
 
+import Task from './components/task';
 
 import Storage from 'react-native-storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 export default function App() {
 
@@ -18,7 +16,7 @@ export default function App() {
     });
 
 
-    const [task, setTask] = useState([]);
+    const [taskInput, setTask] = useState([]);
     const [taskItems, setTaskItems] = useState([]);
 
     const InitialAllTasks = () => {
@@ -35,13 +33,15 @@ export default function App() {
     }, [])
 
     const handleAddTask = () => {
-        setTaskItems([{text: task, status: 'new'}, ...taskItems])
-        storage.save({
-            key: 'tasks',
-            id: taskItems.length,
-            data: {text: task, status: 'new'},
-        });
-        setTask('');
+        if(taskInput !== "") {
+            setTaskItems([{text: taskInput, status: 'new'}, ...taskItems])
+            storage.save({
+                key: 'tasks',
+                id: taskItems.length,
+                data: {text: taskInput, status: 'new'},
+            });
+            setTask('');
+        }
     };
     const deleteTask = (index) => {
         console.log('DELETE')
@@ -87,7 +87,7 @@ export default function App() {
     return (
         <View style={styles.container}>
             <Text style={styles.sectionTitle}>Tasks list</Text>
-            <View style={styles.items}>
+            <ScrollView style={styles.items}>
                 {
                     taskItems.map((item, index) => {
                         return (
@@ -97,9 +97,9 @@ export default function App() {
                         )
                     })
                 }
-            </View>
+            </ScrollView>
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.writeTaskWrapper}>
-                <TextInput style={styles.input} placeholder={'Create a task'} value={task} onChangeText={text => setTask(text)}/>
+                <TextInput style={styles.input} placeholder={'Create a task'} value={taskInput} onChangeText={text => setTask(text)}/>
 
                 <TouchableOpacity onPress={() => handleAddTask()}>
                     <View style={styles.addWrapper}>
@@ -125,13 +125,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     items: {
-        paddingTop: 24,
+        paddingVertical: 24,
         paddingHorizontal: 16,
-
+        maxHeight: '85%'
     },
     writeTaskWrapper: {
         position: 'absolute',
-        bottom: 40,
+        bottom: 20,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',

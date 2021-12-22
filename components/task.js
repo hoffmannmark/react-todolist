@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {TouchableOpacity} from "react-native-web";
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+// import {TouchableOpacity} from "react-native-web";
 
 const task = (props) => {
     let callParentFunctionDelete = (dex) => {
@@ -12,16 +12,16 @@ const task = (props) => {
     console.log(props, 'TEXS');
     return (
         <View style={[styles.taskItem, styles.boxShadow]}>
-            <TouchableOpacity onPress={() => callparentfunctionDone(props.index )}>
-            <View style={[styles.checkBox, (props.status === "done") ? styles.checked : '']}>
-            </View>
+            <TouchableOpacity onPress={() => callparentfunctionDone(props.index)}>
+                <View style={[styles.checkBox, (props.status === "done") ? styles.checked : '']}>
+                </View>
             </TouchableOpacity>
             <View style={styles.left}>
                 <TouchableOpacity style={styles.checkbox}></TouchableOpacity>
                 <Text style={[styles.textDefault, (props.status === "done") ? styles.textDone : '']}>{props.text}</Text>
             </View>
-            <TouchableOpacity onPress={() =>  callParentFunctionDelete(props.index )}>
-                <View style={styles.deleteBtn} >
+            <TouchableOpacity onPress={() => callParentFunctionDelete(props.index)}>
+                <View style={styles.deleteBtn}>
 
                 </View>
             </TouchableOpacity>

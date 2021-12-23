@@ -14,11 +14,8 @@ export default function App() {
         defaultExpires: null,
         enableCache: true,
     });
-
-
     const [taskInput, setTask] = useState([]);
     const [taskItems, setTaskItems] = useState([]);
-
     const InitialAllTasks = () => {
         storage.getAllDataForKey('tasks').then(storageTasks => {
             console.log(storageTasks);
@@ -27,13 +24,11 @@ export default function App() {
             }
         });
     }
-
     useEffect(() => {
         InitialAllTasks();
     }, [])
-
     const handleAddTask = () => {
-        if(taskInput !== "") {
+        if (taskInput !== "") {
             setTaskItems([{text: taskInput, status: 'new'}, ...taskItems])
             storage.save({
                 key: 'tasks',
@@ -57,7 +52,6 @@ export default function App() {
             });
         }
     }
-
     const doneTask = (index) => {
         console.log('doneTask')
         let itemsCopy = [...taskItems];
@@ -100,7 +94,6 @@ export default function App() {
             </ScrollView>
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.writeTaskWrapper}>
                 <TextInput style={styles.input} placeholder={'Create a task'} value={taskInput} onChangeText={text => setTask(text)}/>
-
                 <TouchableOpacity onPress={() => handleAddTask()}>
                     <View style={styles.addWrapper}>
                         <Text style={styles.addText}>+</Text>
@@ -147,22 +140,21 @@ const styles = StyleSheet.create({
         paddingVertical: 16,
         width: '80%',
         backgroundColor: '#ffffff',
-        borderRadius: 16
+        borderRadius: 16,
     },
     addWrapper: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: 48,
+        width: 48,
+        backgroundColor: '#55BCF6',
+        borderRadius: 100,
     },
     addText: {
         color: '#ffffff',
         fontSize: 40,
-        height: 48,
-        width: 48,
-        borderRadius: 100,
-        backgroundColor: '#55BCF6',
-        display: 'flex',
-        justifyContent: 'center',
+        lineHeight: 50
     }
 
 });

@@ -1,6 +1,5 @@
 import React from 'react';
-import {View, Text, Image, ScrollView, TouchableOpacity, StyleSheet} from 'react-native';
-import { SvgUri } from 'react-native-svg';
+import {View, Text, Image, ScrollView,  TouchableOpacity, StyleSheet} from 'react-native';
 
 const task = (props) => {
     let callParentFunctionDelete = (dex) => {
@@ -25,12 +24,8 @@ const task = (props) => {
                 </View>
             </View>
             <TouchableOpacity onPress={() => callParentFunctionDelete(props.index)}>
-                <View style={styles.deleteBtn}>
-                    <SvgUri
-                        width="100%"
-                        height="100%"
-                        uri="https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/debian.svg"
-                    />
+                <View >
+                    <Image style={styles.deleteBtn} source={require('../assets/delete.png')}/>
                 </View>
             </TouchableOpacity>
         </View>
@@ -51,7 +46,8 @@ const styles = StyleSheet.create({
         borderColor: '#F7F7F7',
         marginBottom: 16,
         paddingVertical: 16,
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden'
     },
     boxShadow: {
         shadowColor: '#00000005',
@@ -78,11 +74,9 @@ const styles = StyleSheet.create({
     textWrapp: {},
     textDefault: {
         color: 'black',
-        position: 'relative',
-        zIndex: 2
     },
     textDone: {
-        color: 'grey',
+        color: 'lightgrey',
         flexGrow: 1
     },
     deleteBtn: {

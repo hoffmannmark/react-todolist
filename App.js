@@ -96,7 +96,7 @@ export default function App() {
                 <TextInput style={styles.input} placeholder={'Create a task'} value={taskInput} onChangeText={text => setTask(text)}/>
                 <TouchableOpacity onPress={() => handleAddTask()}>
                     <View style={styles.addWrapper}>
-                        <Text style={styles.addText}>+</Text>
+                        <Text style={styles.addText}>Add</Text>
                     </View>
                 </TouchableOpacity>
             </KeyboardAvoidingView>
@@ -153,8 +153,8 @@ const styles = StyleSheet.create({
     },
     addText: {
         color: '#ffffff',
-        fontSize: 40,
-        lineHeight: 50
+        fontSize: 16,
+        fontWeight: 600
     }
 
 });

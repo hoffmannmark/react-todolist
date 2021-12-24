@@ -18,7 +18,6 @@ export default function App() {
     const [taskItems, setTaskItems] = useState([]);
     const InitialAllTasks = () => {
         storage.getAllDataForKey('tasks').then(storageTasks => {
-            console.log(storageTasks);
             if (storageTasks.length > 0) {
                 setTaskItems(storageTasks)
             }
@@ -39,11 +38,12 @@ export default function App() {
         }
     };
     const deleteTask = (index) => {
-        console.log('DELETE')
         let itemsCopy = [...taskItems];
+
         itemsCopy.splice(index, 1);
         setTaskItems(itemsCopy);
         storage.clearMap();
+
         for (let i = 0; itemsCopy.length > i; i++) {
             storage.save({
                 key: 'tasks',
@@ -53,11 +53,12 @@ export default function App() {
         }
     }
     const doneTask = (index) => {
-        console.log('doneTask')
         let itemsCopy = [...taskItems];
         let doneTaskItem = taskItems[index];
-        itemsCopy.splice(index, 1);
         let allItemsCopyWithDone;
+
+        itemsCopy.splice(index, 1);
+
         if (doneTaskItem.status === 'done') {
             allItemsCopyWithDone = [doneTaskItem, ...itemsCopy]
             doneTaskItem.status = 'new';
@@ -69,6 +70,7 @@ export default function App() {
 
         setTaskItems(allItemsCopyWithDone);
         storage.clearMap();
+
         for (let i = 0; allItemsCopyWithDone.length > i; i++) {
             storage.save({
                 key: 'tasks',
@@ -155,7 +157,6 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         fontSize: 16,
     }
-
 });
 
 

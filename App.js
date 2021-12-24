@@ -154,7 +154,6 @@ const styles = StyleSheet.create({
     addText: {
         color: '#ffffff',
         fontSize: 16,
-        fontWeight: 600
     }
 
 });
